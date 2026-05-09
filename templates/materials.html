@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block title %}原料管理 - 石蜡配方设计系统{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0"><i class="bi bi-box"></i> 原料管理</h2>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#materialModal" onclick="clearForm()">
+        <i class="bi bi-plus-circle"></i> 添加原料
+    </button>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="searchInput" placeholder="搜索名称或代号...">
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>代号</th>
+                        <th>名称</th>
+                        <th>熔点 (°C)</th>
+                        <th>含油量 (%)</th>
+                        <th>针入度 (1/10mm)</th>
+                        <th>粘度 (mm²/s)</th>
+                        <th>颜色 (Saybolt)</th>
+                        <th>成本 (元/kg)</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="materialTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="materialModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">添加原料</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editId">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">名称 <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="mName" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">代号</label>
+                        <input type="text" class="form-control" id="mCode">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">熔点 (°C)</label>
+                        <input type="number" step="0.1" class="form-control" id="mMeltingPoint">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">含油量 (%)</label>
+                        <input type="number" step="0.01" class="form-control" id="mOilContent">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">针入度 (1/10mm)</label>
+                        <input type="number" step="0.1" class="form-control" id="mPenetration">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">粘度 (mm²/s)</label>
+                        <input type="number" step="0.1" class="form-control" id="mViscosity">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">颜色 (Saybolt)</label>
+                        <input type="number" step="1" class="form-control" id="mColor">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">成本 (元/kg)</label>
+                        <input type="number" step="0.01" class="form-control" id="mCostPerKg">
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">备注</label>
+                        <textarea class="form-control" id="mDescription" rows="2"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="saveMaterial()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/materials-page.js') }}"></script>
+{% endblock %}

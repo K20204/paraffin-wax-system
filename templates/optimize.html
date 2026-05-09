@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}配方优化 - 石蜡配方设计系统{% endblock %}
+{% block content %}
+<h2 class="mb-3"><i class="bi bi-lightbulb"></i> 配方优化</h2>
+<p class="text-muted mb-3">设置目标属性范围和约束条件，系统自动搜索最优配方组合。</p>
+
+<div class="row g-4">
+    <div class="col-md-5">
+        <div class="card shadow-sm mb-3">
+            <div class="card-header bg-white fw-bold"><i class="bi bi-box"></i> 可选原料</div>
+            <div class="card-body" id="optimMatList"><p class="text-muted text-center">加载中...</p></div>
+        </div>
+        <div class="card shadow-sm mb-3">
+            <div class="card-header bg-white fw-bold"><i class="bi bi-sliders"></i> 约束条件</div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">最大原料数</label>
+                    <select class="form-select" id="maxComponents">
+                        <option value="2">2</option>
+                        <option value="3" selected>3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">成本权重: <span id="costWeightLabel">0.3</span></label>
+                    <input type="range" class="form-range" id="costWeight" min="0" max="1" step="0.05" value="0.3" oninput="document.getElementById('costWeightLabel').textContent = this.value">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="card shadow-sm mb-3">
+            <div class="card-header bg-white fw-bold"><i class="bi bi-bullseye"></i> 目标范围</div>
+            <div class="card-body" id="targetRanges">
+                <p class="text-muted text-center">加载中...</p>
+            </div>
+        </div>
+        <button class="btn btn-warning btn-lg w-100 mb-3" onclick="runOptimize()"><i class="bi bi-lightbulb"></i> 开始优化</button>
+        <div id="optimResults"></div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/optimize-page.js') }}"></script>
+{% endblock %}

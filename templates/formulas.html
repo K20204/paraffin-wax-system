@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}配方管理 - 石蜡配方设计系统{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0"><i class="bi bi-file-text"></i> 配方管理</h2>
+    <button class="btn btn-primary" onclick="createFormula()">
+        <i class="bi bi-plus-circle"></i> 新建配方
+    </button>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>名称</th>
+                        <th>描述</th>
+                        <th>原料数</th>
+                        <th>更新时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="formulaTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/formulas-page.js') }}"></script>
+{% endblock %}

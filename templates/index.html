@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}仪表盘 - 石蜡配方设计系统{% endblock %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-4 mb-3">
+        <div class="card stat-card bg-primary bg-opacity-10">
+            <div class="card-body d-flex align-items-center">
+                <div class="me-3 stat-icon text-primary"><i class="bi bi-box"></i></div>
+                <div>
+                    <div class="text-muted small">原料总数</div>
+                    <div class="stat-value text-primary">{{ mat_count }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card stat-card bg-success bg-opacity-10">
+            <div class="card-body d-flex align-items-center">
+                <div class="me-3 stat-icon text-success"><i class="bi bi-file-text"></i></div>
+                <div>
+                    <div class="text-muted small">配方总数</div>
+                    <div class="stat-value text-success">{{ formula_count }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card stat-card bg-warning bg-opacity-10">
+            <div class="card-body d-flex align-items-center">
+                <div class="me-3 stat-icon text-warning"><i class="bi bi-calculator"></i></div>
+                <div>
+                    <div class="text-muted small">可用属性指标</div>
+                    <div class="stat-value text-warning">5</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-white fw-bold">快捷操作</div>
+            <div class="card-body d-grid gap-2">
+                <a href="/materials" class="btn btn-outline-primary"><i class="bi bi-plus-circle"></i> 管理原料</a>
+                <a href="/calculate" class="btn btn-outline-success"><i class="bi bi-calculator"></i> 计算配比</a>
+                <a href="/predict" class="btn btn-outline-info"><i class="bi bi-graph-up"></i> 性能预测</a>
+                <a href="/optimize" class="btn btn-outline-warning"><i class="bi bi-lightbulb"></i> 配方优化</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-white fw-bold">最近配方</div>
+            <div class="card-body">
+                {% if recent %}
+                <table class="table table-sm table-hover">
+                    <thead><tr><th>名称</th><th>创建时间</th><th></th></tr></thead>
+                    <tbody>
+                    {% for f in recent %}
+                    <tr>
+                        <td>{{ f['name'] }}</td>
+                        <td class="text-muted small">{{ format_date(f['created_at']) if format_date is defined else f['created_at'] }}</td>
+                        <td><a href="/formulas/{{ f['id'] }}" class="btn btn-sm btn-outline-secondary">查看</a></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <p class="text-muted mb-0">暂无配方，<a href="/formulas">去创建</a></p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
